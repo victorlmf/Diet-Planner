@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>View Menu</title>
+</head>
+<body>
+    <!-- Header -->
+    <div class="container col-8">
+        <div class="navbar border-bottom border-dark mb-3">
+            <h2>Welcome, {{user.first_name}}!</h2>
+            <div class="d-flex">
+                <a href="/dashboard" class="btn btn-info me-3">Back To Dashboard</a>
+                <a href="/logout" class="btn btn-warning">Logout</a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <h5>Menu Title: {{menu.title}}</h5>
+            <h5>Post by: {{menu.creator.first_name}}</h5>
+        </div>
+        <dl class="row border p-2">
+            <dt class="col-sm-3">Date Made:</dt>
+            <dd class="col-sm-9">{{menu.date_made}}</dd>
+            <dt class="col-sm-3">Calories:</dt>
+            <dd class="col-sm-9">{{menu.calorie}}</dd>
+            <dt class="col-sm-3">Ingredients:</dt>
+            <dd class="col-sm-9">{{menu.ingredient}}</dd>
+            <dt class="col-sm-3">Instruction:</dt>
+            <dd class="col-sm-9">{{menu.instruction}}</dd>
+        </dl>
+        <div class="w-50 p-2" style="height: 500px;">
+            <h5>Liked By:</h5>
+            <div class="border p-2 h-50 overflow-auto">
+                {% for like_sender in like_senders %}
+                    <p>{{like_sender.first_name}} {{like_sender.last_name}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

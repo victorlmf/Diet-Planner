@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Edit Menu</title>
+</head>
+<body>
+<!-- Header -->
+    <div class="container col-8">
+        <div class="navbar border-bottom border-dark mb-3">
+            <h2>Edit Diet Menu: {{menu.title}}</h2>
+            <div class="d-flex">
+                <a href="/dashboard" class="btn btn-info me-3">Back To Dashboard</a>
+                <a href="/logout" class="btn btn-warning">Logout</a>
+            </div>
+        </div>
+        <!-- Create New Menu -->
+        <div class="d-flex">
+            <form action="/edit_menu/{{menu.id}}" method="post" class="w-50 me-3">
+                {% with messages = get_flashed_messages(category_filter=['menu']) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p style="color: red;">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <!-- Menu Name -->
+                <div class="form-group mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" name="title" class="form-control" value="{{menu.title}}">
+                </div>
+                <!-- Ingredients -->
+                <div class="form-group mb-3">
+                    <label for="ingredient" class="form-label">Ingredients:</label>
+                    <textarea name="ingredient" class="form-control" style="height: 150px;">{{menu.ingredient}}</textarea>
+                </div>
+                <!-- Instruction -->
+                <div class="form-group mb-3">
+                    <label for="instruction" class="form-label">Instruction:</label>
+                    <textarea name="instruction" class="form-control" style="height: 150px;">{{menu.instruction}}</textarea>
+                </div>
+                <!-- Calories -->
+                <div class="form-group mb-3">
+                    <label for="calorie" class="form-label">Calories:</label>
+                    <input type="number" name="calorie" class="form-control" value="{{menu.calorie}}">
+                </div>
+                <!-- Date Made -->
+                <div class="form-group mb-3">
+                    <label for="date_made" class="form-label">Date Made:</label>
+                    <input type="date" name="date_made" class="form-control" value="{{menu.date_made}}">
+                </div>
+                <input type="submit" value="Update Menu" class="btn btn-success">
+            </form>
+            <!-- Connect with APIs to get nutrition facts -->
+            <div class="w-50 ms-3">
+                <form action="/nutrition" method="post">
+                    <label for="food" class="form-label">Food:</label>
+                    <input type="text" name="food" class="form-control">
+                    <input type="submit" value="Search For Nutrition Facts" class="btn btn-primary mt-3">
+                </form>
+                <h5 class="mt-3 border-bottom border-dark">Nutrition Facts of {{session.food}}:</h5>
+                <dl class="row">
+                    <dt class="col-sm-5">Name:</dt>
+                    <dd class="col-sm-7">{{session.name}}</dd>
+                    <dt class="col-sm-5">Calories:</dt>
+                    <dd class="col-sm-7">{{session.calories}}</dd>
+                    <dt class="col-sm-5">Serving Size(g):</dt>
+                    <dd class="col-sm-7">{{session.serving_size_g}}</dd>
+                    <dt class="col-sm-5">Fat Total(g):</dt>
+                    <dd class="col-sm-7">{{session.fat_total_g}}</dd>
+                    <dt class="col-sm-5">Saturated Fat(g):</dt>
+                    <dd class="col-sm-7">{{session.fat_saturated_g}}</dd>
+                    <dt class="col-sm-5">Protien(g):</dt>
+                    <dd class="col-sm-7">{{session.protein_g}}</dd>
+                    <dt class="col-sm-5">Sodium(mg):</dt>
+                    <dd class="col-sm-7">{{session.sodium_mg}}</dd>
+                    <dt class="col-sm-5">Potassium(mg):</dt>
+                    <dd class="col-sm-7">{{session.potassium_mg}}</dd>
+                    <dt class="col-sm-5">Cholesterol(mg):</dt>
+                    <dd class="col-sm-7">{{session.cholesterol_mg}}</dd>
+                    <dt class="col-sm-5">Carbohydrates(g):</dt>
+                    <dd class="col-sm-7">{{session.carbohydrates_total_g}}</dd>
+                    <dt class="col-sm-5">Fiber(g):</dt>
+                    <dd class="col-sm-7">{{session.fiber_g}}</dd>
+                    <dt class="col-sm-5">Sugar(g):</dt>
+                    <dd class="col-sm-7">{{session.sugar_g}}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

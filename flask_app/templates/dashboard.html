@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <!-- Header -->
+    <div class="container col-8">
+        <div class="navbar border-bottom border-dark mb-3">
+            <h2>Welcome, {{user.first_name}}!</h2>
+            <div class="d-flex">
+                <a href="/show_menu/{{user.id}}" class="btn btn-secondary me-3">My Menu</a>
+                <a href="/create_page" class="btn btn-info me-3">Create Menu</a>
+                <a href="/logout" class="btn btn-warning">Logout</a>
+            </div>
+        </div>
+        <h5>All Posted Menus:</h5>
+        <!-- Table -->
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Title</th>
+                    <th scope="col" class="text-center">Calories</th>
+                    <th scope="col" class="text-center">Post By</th>
+                    <th scope="col" class="text-center">Like(s)</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- jinja loop all table data -->
+                {% for menu in all_info %}
+                    <tr>
+                        <td class="text-center">{{menu.title}}</td>
+                        <td class="text-center">{{menu.calorie}}</td>
+                        <td class="text-center">{{menu.creator.first_name}} {{menu.creator.last_name}}</td>
+                        <td class="text-center">{{menu.all_likes | length}}</td>
+                        <td class="text-center">
+                            <a href="/view/{{menu.id}}">View</a> 
+                            {% if user.id != menu.creator.id %}
+                                {% if user.id in menu.all_likes | map(attribute = 'id' ) %}
+                                | <a href="/dislike/{{menu.id}}">Dislike</a>
+                                {% else %}
+                                <a href="like/{{menu.id}}">Like</a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

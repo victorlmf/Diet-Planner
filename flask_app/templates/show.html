@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Header -->
+    <div class="container col-8">
+        <div class="navbar border-bottom border-dark mb-3">
+            <h2>Welcome, {{user.first_name}}!</h2>
+            <div class="d-flex">
+                <a href="/dashboard" class="btn btn-info me-3">Back To Dashboard</a>
+                <a href="/logout" class="btn btn-warning">Logout</a>
+            </div>
+        </div>
+        <h4>Manage My Menus</h4>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Title</th>
+                    <th scope="col" class="text-center">Calories</th>
+                    <th scope="col" class="text-center">Date Made</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for menu in menus %}
+                    <tr>
+                        <td class="text-center">{{menu.title}}</td>
+                        <td class="text-center">{{menu.calorie}}</td>
+                        <td class="text-center">{{menu.date_made}}</td>
+                        <td class="text-center">
+                            <a href="/edit/{{menu.id}}">Edit</a> |
+                            <a href="/delete/{{menu.id}}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
