@@ -2,6 +2,8 @@
 
 This Diet Planner application provides the ability for users to check the nutrition facts of any food in order to create their own diet menu. 
 
+## Features
+
 ### Registration & Login
 - Proper input validations are added for resitration and login process to make sure users provide accurate information when registering and logging in. 
 
@@ -23,3 +25,35 @@ This Diet Planner application provides the ability for users to check the nutrit
 
 ### My Menu
 - My menu page shows a table of the menus that created by the logged in user, user has the ability to edit and delete any menu. 
+
+## Technical Overview
+This application uses the following frameworks and languages:
+- HTML, CSS, Bootstrap
+- Python
+- Flask
+- MySQL
+
+## Installation
+This application can be run locally by cloning it onto your computer. MySQL is needed to be installed prior running the application. MySQL Workbench is required to be installed to setup the ERD and connect the application to the databse. 
+
+Virtual environment with the use of Pipenv is needed for backend. Dependencies are required to be installed. 
+- to install dependencies for backend
+```
+$ cd server
+$ pipenv shell
+$ pipenv install
+```
+
+### Start running locally
+The application will be run on localhost port, to activate virtual environment and start running, by default on `http://localhost:5000`
+```
+$ cd server
+$ pipenv shell
+$ pipenv install flask pymysql
+$ python server.py
+```
+
+- to deactivate backend virtual environment when done with application
+```
+$ exit
+```
